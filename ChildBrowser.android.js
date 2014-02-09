@@ -78,7 +78,7 @@ ChildBrowser.prototype._onError = function(data) {
  * Load ChildBrowser
  */                                                      
 
-ChildBrowser.install = function() {
+ChildBrowser.prototype.install = function() {
 	if(!window.plugins)
 		window.plugins = {};
 
