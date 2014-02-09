@@ -84,3 +84,5 @@ ChildBrowser.install = function() {
 
 	window.plugins.childBrowser = new ChildBrowser();
 };
+
+module.exports = new ChildBrowser();
