@@ -6,32 +6,41 @@
     id="com.phonegap.plugins.childBrowser"
     version="1.0.0">                
     <name>Downloader</name>
-    <description>eMagCreator Downloader Plugin</description>
+    <description>eMagCreator Child Browser plugin</description>
     <license>Apache 2.0</license>
-    <keywords>cordova, Downloader</keywords>
+    <keywords>cordova, Child Browser</keywords>
                     
-    <js-module src="ChildBrowser.android.js" name="ChildBrowser">
-        <clobbers target="childBrowser" /> 
+    <js-module src="ChildBrowser.js" name="ChildBrowser">
+        <clobbers target="ChildBrowser" /> 
     </js-module>
  
-    <!-- android -->
     <platform name="android">
 	<!-- android-specific elements -->
-	
+        
+		<source-file src="src/android/ChildBrowser.java" target-dir="src/com/phonegap/plugins/childBrowser" />
+        
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="ChildBrowser">
                 <param name="android-package" value="com.phonegap.plugins.childBrowser.ChildBrowser"/>
             </feature>
         </config-file>
-        
-        <source-file src="ChildBrowser.java" target-dir="src/com/phonegap/plugins/childBrowser" />
-	
-	<!-- permisions
-        <config-file target="AndroidManifest.xml" parent="/*">
-		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	</config-file>
-	-->
     </platform>
+	
+	<platform name="ios">
+		<!-- ios-specific elements -->
+	
+        <header-file src="src/ios/ChildBrowserCommand.h" />
+    	<source-file src="src/ios/ChildBrowserCommand.m" />
+    	<header-file src="src/ios/ChildBrowserViewController.h" />
+        <source-file src="src/ios/ChildBrowserViewController.m" />
+        
+        <config-file target="config.xml" parent="/*">
+    		<feature name="Downloader" >
+    			<param name="ios-package" value="Downloader"/>
+    		</feature>
+    	</config-file>
+	</platform>
+
 </plugin>
 
 

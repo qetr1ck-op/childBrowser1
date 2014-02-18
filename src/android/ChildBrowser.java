@@ -10,12 +10,12 @@ package com.phonegap.plugins.childBrowser;
 import java.io.IOException;
 import java.io.InputStream;
 
+
+
 //TODO
-import org.apache.cordova.api.CallbackContext;
-import org.apache.cordova.api.CordovaPlugin;
-
-import org.apache.cordova.api.PluginResult;
-
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +41,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -132,7 +133,8 @@ public class ChildBrowser extends CordovaPlugin {
      * @param usePhoneGap   Load url in PhoneGap webview
      * @return              "" if ok, or error message.
      */
-    public String openExternal(String url, boolean usePhoneGap) {
+    @SuppressWarnings("deprecation")
+	public String openExternal(String url, boolean usePhoneGap) {
         try {
             Intent intent = null;
             if (usePhoneGap) {
@@ -367,7 +369,7 @@ public class ChildBrowser extends CordovaPlugin {
                 settings.setJavaScriptEnabled(true);
                 settings.setJavaScriptCanOpenWindowsAutomatically(true);
                 settings.setBuiltInZoomControls(true);
-                settings.setPluginsEnabled(true);
+                settings.setPluginState(PluginState.ON);
                 settings.setDomStorageEnabled(true);
                 webview.loadUrl(url);
                 webview.setId(6);
