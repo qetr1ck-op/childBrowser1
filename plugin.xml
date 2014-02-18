@@ -27,7 +27,7 @@
     </platform>
 	
 	<platform name="ios">
-		<!-- ios-specific elements -->
+	<!-- ios-specific elements -->
 	
         <header-file src="src/ios/ChildBrowserCommand.h" />
     	<source-file src="src/ios/ChildBrowserCommand.m" />
@@ -35,8 +35,8 @@
         <source-file src="src/ios/ChildBrowserViewController.m" />
         
         <config-file target="config.xml" parent="/*">
-    		<feature name="Downloader" >
-    			<param name="ios-package" value="Downloader"/>
+    		<feature name="ChildBrowser" >
+    			<param name="ios-package" value="ChildBrowser"/>
     		</feature>
     	</config-file>
 	</platform>
