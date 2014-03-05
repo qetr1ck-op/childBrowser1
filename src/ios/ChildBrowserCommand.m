@@ -8,9 +8,11 @@
 
 @implementation ChildBrowserCommand
 
-@synthesize childBrowser;
+@synthesize ChildBrowser;
 
-- (void)showWebPage:(NSMutableArray*)arguments withDict:(BOOL*)options  // args: url
+//TODO
+//- (void)showWebPage:(NSMutableArray*)arguments withDict:(BOOL*)options  // args: url
+- (void) showWebPage:(CDVInvokedUrlCommand*)command
 {
     /* setting audio session category to "Playback" (since iOS 6) */
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -19,41 +21,42 @@
     if (!ok) {
         NSLog(@"Error setting AVAudioSessionCategoryPlayback: %@", setCategoryError);
     };
-    
-    if (self.childBrowser == nil) {
+
+    if (self.ChildBrowser == nil) {
 #if __has_feature(objc_arc)
-        self.childBrowser = [[ChildBrowserViewController alloc] initWithScale:NO];
+        self.ChildBrowser = [[ChildBrowserViewController alloc] initWithScale:NO];
 #else
-        self.childBrowser = [[[ChildBrowserViewController alloc] initWithScale:NO] autorelease];
+        self.ChildBrowser = [[[ChildBrowserViewController alloc] initWithScale:NO] autorelease];
 #endif
-        self.childBrowser.delegate = self;
-        self.childBrowser.orientationDelegate = self.viewController;
+        self.ChildBrowser.delegate = self;
+        self.ChildBrowser.orientationDelegate = self.viewController;
     }
 
-    self.hideNavBar = [(NSString*)[arguments objectAtIndex:1] isEqual: @"1"];
-    
+    //TODO
+    //self.hideNavBar = [(NSString*)[command.arguments objectAtIndex:1] isEqual: @"1"];
+
     /* // TODO: Work in progress
      NSString* strOrientations = [ options objectForKey:@"supportedOrientations"];
      NSArray* supportedOrientations = [strOrientations componentsSeparatedByString:@","];
      */
-    
-    [self.viewController presentModalViewController:childBrowser animated:YES];
-    
-    NSString* url = (NSString*)[arguments objectAtIndex:0];
-    
-    [self.childBrowser loadURL:url];
+
+    [self.viewController presentModalViewController:ChildBrowser animated:YES];
+
+    NSString * url = [command.arguments objectAtIndex:0];
+
+    [self.ChildBrowser loadURL:url];
 }
 
 - (void)getPage:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
     NSString* url = (NSString*)[arguments objectAtIndex:0];
-    
-    [self.childBrowser loadURL:url];
+
+    [self.ChildBrowser loadURL:url];
 }
 
 - (void)close:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options // args: url
 {
-    [self.childBrowser closeBrowser];
+    [self.ChildBrowser closeBrowser];
 }
 
 - (void)onClose
@@ -70,9 +73,9 @@
 {
     NSString* tempLoc = [NSString stringWithFormat:@"%@", newLoc];
     NSString* encUrl = [tempLoc stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
+
     NSString* jsCallback = [NSString stringWithFormat:@"window.plugins.childBrowser.onLocationChange('%@');", encUrl];
-    
+
     [self.webView stringByEvaluatingJavaScriptFromString:jsCallback];
 }
 
@@ -81,7 +84,7 @@
 - (void)dealloc
 {
     self.childBrowser = nil;
-    
+
     [super dealloc];
 }
 #endif

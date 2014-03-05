@@ -7,10 +7,13 @@
 
 @interface ChildBrowserCommand : CDVPlugin <ChildBrowserDelegate>{}
 
-@property (nonatomic, strong) ChildBrowserViewController* childBrowser;
+@property (nonatomic, strong) ChildBrowserViewController* ChildBrowser;
 @property (assign) BOOL* hideNavBar;
 
-- (void)showWebPage:(NSMutableArray*)arguments withDict:(BOOL*)options;
+//TODO
+//- (void)showWebPage:(NSMutableArray*)arguments withDict:(BOOL*)options;
+
+- (void) showWebPage:(CDVInvokedUrlCommand*)command;
 - (void)onChildLocationChange:(NSString*)newLoc;
 
 @end

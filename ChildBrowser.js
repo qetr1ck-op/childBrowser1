@@ -1,6 +1,6 @@
 function ChildBrowser() {}
 
-if ($ua.iP) {
+if ($ua.iP()) {
     // Callback when the location of the page changes
     // called from native
     ChildBrowser.prototype._onLocationChange = function(newLoc) {
@@ -32,12 +32,12 @@ if ($ua.iP) {
 
     // Show a webpage, will result in a callback to onLocationChange
     ChildBrowser.prototype.showWebPage = function(loc) {
-        cordova.exec("ChildBrowserCommand.showWebPage", loc);
+        cordova.exec(null, null, "ChildBrowserCommand", "showWebPage", loc);
     };
 
     // close the browser, will NOT result in close callback
     ChildBrowser.prototype.close = function() {
-        cordova.exec("ChildBrowserCommand.close");
+        cordova.exec(null, null, "ChildBrowserCommand", "close", null);
     };
 
     ChildBrowser.prototype.jsExec = function(jsString) {
@@ -47,7 +47,7 @@ if ($ua.iP) {
 
 }
 
-if ($ua.droid) {
+if ($ua.droid()) {
     ChildBrowser.CLOSE_EVENT = 0;
     ChildBrowser.LOCATION_CHANGED_EVENT = 1;
 
